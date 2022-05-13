@@ -21,6 +21,15 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Projects">Projects</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -33,6 +42,7 @@
         </div>
         <footer class="border-top footer text-muted">
             <div class="container">
+                @DateTime.Now.ToShortDateString() - Marco Inkinen
             </div>
         </footer>
     </body>

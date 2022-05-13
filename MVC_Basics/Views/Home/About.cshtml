@@ -1,0 +1,44 @@
+﻿
+
+@{
+    ViewData["Title"] = "About";
+}
+
+@{
+// Just wanted some excuse to use some more razor code. 
+// Plan to move this code to a Controller or Model 
+// and use a ViewBag instead when the project grows bigger.
+
+// Marco's birthdate & today's date
+DateTime birthdate = new DateTime(1973, 4, 12);
+var today = DateTime.Today;
+
+// Calculate the difference in years without considering the date of the year
+var age = today.Year - birthdate.Year;
+
+// Comparing the dates to each other by subtracting today's year with Marco's age
+// Subtract a year from age if birthdate > today's date 
+if (birthdate.Date > today.AddYears(-age)) age--;
+}
+
+<h1>Marco Inkinen</h1>
+<br />
+<div>
+    A @age years old guy from Borås Sweden, whose main interests are to play computer games or football.
+</div>
+<br />
+<h3>Goals</h3>
+<div>
+    Find the answers to life's many questions, peace on earth, live forever and be happy.
+</div>
+<br />
+<h3>Short-term goals: </h3>
+<div>
+    Update and expand his programming skills.
+</div>
+<br />
+<h3>Long-term goals:</h3>
+<div>
+    To develop himself in a stimulating environment. Do good and get meaningful experiences along the way.
+</div>
+<br />
