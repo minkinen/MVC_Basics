@@ -19,16 +19,16 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="About">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Contact">Contact</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Projects">Projects</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Projects">Projects</a>
+                                <a class="nav-link text-dark" asp-controller="Doctor" asp-action="Index">Doctor</a>
                             </li>
                         </ul>
                     </div>
@@ -40,6 +40,8 @@
                 @RenderBody()
             </main>
         </div>
+        <br />
+        <br />
         <footer class="border-top footer text-muted">
             <div class="container">
                 @DateTime.Now.ToShortDateString() - Marco Inkinen
