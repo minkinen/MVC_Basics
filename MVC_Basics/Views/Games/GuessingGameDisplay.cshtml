@@ -1,0 +1,46 @@
+﻿
+
+@{
+    ViewData["Title"] = "GuessingGame";
+}
+
+<h1>Guessing Game</h1>
+<br />
+<div>
+    Try to guess the hidden number (1-100).
+</div>
+<br />
+
+<form asp-action="Player" method="post">
+    <label>Player Name: </label>
+    <input type="text" required  name="player" />
+    <input type="submit" value="Submit" />
+</form>
+<br />
+
+<form asp-action="GuessingGame" method="post">
+    <label>Guess a number: </label>
+    <input type="number" required name="input" min="1" max="100"/>
+    <input type="submit" value="Submit" />
+</form>
+<br />
+
+@if (ViewBag.NewMessage != null)
+{
+    <p>@ViewBag.NewMessage</p>
+}
+<br />
+
+@if (ViewBag.Highscore != null)
+{
+    <ol>
+    @foreach (var score in ViewBag.Highscore)
+    {
+        <li>
+            Guess @score.Item2 - @score.Item1
+        </li>
+    }
+    </ol>
+}
+<br />
+
