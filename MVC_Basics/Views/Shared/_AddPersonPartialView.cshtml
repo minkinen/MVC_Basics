@@ -1,0 +1,19 @@
+﻿
+
+@model CreatePersonViewModel
+
+Submit a Person to the List
+<br />
+<form asp-controller="People" asp-action="AddNewPerson" method="post">
+    <label asp-for="Name"></label>
+    <input type="text" required name="name" />
+    <br />
+    <label asp-for="PhoneNumber"></label>
+    <input type="text" required name="phoneNumber" />
+    <br />
+    <label asp-for="City"></label>
+    <input type="text" required name="city" />
+    <br />
+    <input type="submit" value="Submit" />
+</form>
+

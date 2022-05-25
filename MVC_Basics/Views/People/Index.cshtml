@@ -1,0 +1,72 @@
+﻿
+
+@model PeopleViewModel
+
+@{
+    ViewData["Title"] = PeopleViewModel.Title;
+}
+
+<h1>@PeopleViewModel.Header</h1>
+
+
+<div align="right">
+<partial name="~/Views/Shared/_AddPersonPartialView.cshtml" model="new CreatePersonViewModel()" />
+</div>
+<br />
+
+
+<div align="right">
+<form asp-controller="People" asp-action="Search" method="post">
+    <label>Search for a Name or City&nbsp;</label>
+    <br />
+    <input type="text" required  name="Search" />
+    <br />
+    <input type="submit" value="Search" />
+</form>
+</div>
+
+
+@if (ViewBag.SearchMessage == null)
+{
+    <p>Full List</p>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>PhoneNumber</th>
+        <th>City</th>
+        <th>&nbsp;</th>
+    </tr>
+    @foreach (var item in PeopleViewModel.people)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.PhoneNumber</td>
+            <td>@item.City</td>
+            <td><a asp-action="DeletePerson" asp-route-id="@item.Id">Delete</a></td>
+        </tr>
+    }
+</table>
+}
+else
+{
+    <p>@ViewBag.SearchMessage</p>
+
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>PhoneNumber</th>
+            <th>City</th>
+            <th>&nbsp;</th>
+        </tr>
+        @foreach (var item in Model.QueryList)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.City</td>
+                <td><a asp-action="DeletePerson" asp-route-id="@item.Id">Delete</a></td>
+            </tr>
+        }
+    </table>
+}
