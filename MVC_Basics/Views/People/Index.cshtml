@@ -30,43 +30,62 @@
 {
     <p>Full List</p>
 
-<table class="table">
-    <tr>
-        <th>Name</th>
-        <th>PhoneNumber</th>
-        <th>City</th>
-        <th>&nbsp;</th>
-    </tr>
+    <div class="row">
+        <div class="col-sm">
+            <b>Name</b>
+        </div>
+        <div class="col-sm">
+            <b>PhoneNumber</b>
+        </div>
+        <div class="col-sm">
+            <b>City</b>
+        </div>
+        <div class="col-sm">
+            <b>&nbsp;</b>
+        </div>
+        <hr>
+    </div>
     @foreach (var item in PeopleViewModel.people)
     {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.PhoneNumber</td>
-            <td>@item.City</td>
-            <td><a asp-action="DeletePerson" asp-route-id="@item.Id">Delete</a></td>
-        </tr>
+        <partial name="~/Views/Shared/_IndividualPersonPartialView.cshtml" model="item" />
+        <hr>
     }
-</table>
 }
 else
 {
     <p>@ViewBag.SearchMessage</p>
 
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>PhoneNumber</th>
-            <th>City</th>
-            <th>&nbsp;</th>
-        </tr>
-        @foreach (var item in Model.QueryList)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.PhoneNumber</td>
-                <td>@item.City</td>
-                <td><a asp-action="DeletePerson" asp-route-id="@item.Id">Delete</a></td>
-            </tr>
-        }
-    </table>
+    <div class="row">
+        <div class="col-sm">
+            <b>Name</b>
+        </div>
+        <div class="col-sm">
+            <b>PhoneNumber</b>
+        </div>
+        <div class="col-sm">
+            <b>City</b>
+        </div>
+        <div class="col-sm">
+            <b>&nbsp;</b>
+        </div>
+        <hr>
+    </div>
+    @foreach (var item in Model.QueryList)
+    {
+        <div class="row">
+            <div class="col-sm">
+                @item.Name
+            </div>
+            <div class="col-sm">
+                @item.PhoneNumber
+            </div>
+            <div class="col-sm">
+                @item.City
+            </div>
+            <div class="col-sm">
+                <a asp-action="DeletePerson" asp-route-id="@item.Id">Delete</a>
+            </div>
+        </div>
+        <hr>
+    }
 }

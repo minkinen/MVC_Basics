@@ -1,0 +1,18 @@
+﻿
+
+@model Person
+
+<div class="row">
+    <div class="col-sm">
+        @Html.DisplayFor(modelItem => Model.Name)
+    </div>
+    <div class="col-sm">
+        @Html.DisplayFor(modelItem => Model.PhoneNumber)
+    </div>
+    <div class="col-sm">
+        @Html.DisplayFor(modelItem => Model.City)
+    </div>
+    <div class="col-sm">
+        <a asp-action="DeletePerson" asp-route-id="@Model.Id">Delete</a>
+    </div>
+</div>
