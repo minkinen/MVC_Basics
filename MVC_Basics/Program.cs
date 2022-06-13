@@ -1,5 +1,9 @@
 
 
+using Microsoft.EntityFrameworkCore;
+using MVC_Basics.Data;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Good for sessions I think
@@ -15,6 +19,10 @@ builder.Services.AddSession(options =>
 
 // Add services to the container and needs to be done before builder.Build();.
 builder.Services.AddMvc();
+
+// Will include a database in the Build
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MVC_BasicsDB")));
 
 var app = builder.Build();
 

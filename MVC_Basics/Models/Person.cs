@@ -3,12 +3,15 @@
 using Microsoft.AspNetCore.Mvc;
 using MVC_Basics.Models.ViewModels;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVC_Basics.Models
 {
 
     public class Person
     {
+
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Display(Name = "Full Name")]
@@ -29,6 +32,13 @@ namespace MVC_Basics.Models
 
         public Person()
         {
+        }
+
+        public Person(string name, string phone, string city)
+        {
+            Name = name;
+            PhoneNumber = phone;
+            City = city;
         }
 
         public Person(int id,  string name, string phone, string city)

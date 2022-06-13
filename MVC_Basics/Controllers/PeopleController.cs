@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MVC_Basics.Data;
 using MVC_Basics.Models;
 using MVC_Basics.Models.ViewModels;
 
@@ -6,11 +7,19 @@ namespace MVC_Basics.Controllers
 {
     public class PeopleController : Controller
     {
+        //  Use Dependency Injection to inject database context into your controller
+        private readonly ApplicationDbContext _context;
+
+        // Use the database context to persist our Person data on the database and retrieve the data when needed.
+        public PeopleController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index()
         {
-            PeopleViewModel.DefaultList();
             PeopleViewModel peopleViewModelInstance = new PeopleViewModel();
+            peopleViewModelInstance.PeopleList = _context.People.ToList();
             return View("Index", peopleViewModelInstance);
         }
 
@@ -20,10 +29,12 @@ namespace MVC_Basics.Controllers
         {
             if (!String.IsNullOrEmpty(search))
             {
+                PeopleViewModel peopleViewModelSearchInstance = new PeopleViewModel();
+                peopleViewModelSearchInstance.PeopleList = _context.People.ToList();
 
                 List<Person> queryList = new List<Person>();
 
-                foreach (Person p in PeopleViewModel.people)
+                foreach (Person p in peopleViewModelSearchInstance.PeopleList)
                 {
                     bool searchHit = p.Name.ToString().ToUpper().Contains(search.ToUpper()) || p.City.ToString().ToUpper().Contains(search.ToUpper());
                     if (searchHit == true)
@@ -32,11 +43,8 @@ namespace MVC_Basics.Controllers
                     }
                 }
 
-                PeopleViewModel peopleViewModelSearchInstance = new PeopleViewModel()
-                {
-                    Search = search,
-                    QueryList = queryList,
-                };
+                peopleViewModelSearchInstance.Search = search;
+                peopleViewModelSearchInstance.QueryList = queryList;
 
                 ViewBag.SearchMessage = "Search: " + search;
 
@@ -50,11 +58,13 @@ namespace MVC_Basics.Controllers
 
 
 
-        public IActionResult DeletePerson(int id)
+        public IActionResult DeletePerson(int Id)
         {
             if (ModelState.IsValid)
             {
-                var updateList = PeopleViewModel.people.RemoveAll(y => y.Id == id);
+                var personToRemove = _context.People.Find(Id);
+                _context.People.Remove(personToRemove);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -65,14 +75,13 @@ namespace MVC_Basics.Controllers
         }
 
 
-        // Will set Id to a unique random number when I have learned how to do that instead of the current pageCount that I use now
         [HttpPost]
         public IActionResult AddNewPerson(CreatePersonViewModel person)
         {
             if (ModelState.IsValid)
             {
-                Person newPerson = new(PeopleViewModel.pageCount, person.Name, person.PhoneNumber, person.City);
-                PeopleViewModel.people.Add(newPerson);
+                _context.People.Add(person);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             else

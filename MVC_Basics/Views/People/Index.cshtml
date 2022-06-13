@@ -45,7 +45,7 @@
         </div>
         <hr>
     </div>
-    @foreach (var item in PeopleViewModel.people)
+    @foreach (var item in Model.PeopleList)
     {
         <partial name="~/Views/Shared/_IndividualPersonPartialView.cshtml" model="item" />
         <hr>
