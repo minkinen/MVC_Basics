@@ -1,0 +1,10 @@
+﻿@model Country
+
+<div class="row">
+    <div class="col-sm">
+        @Html.DisplayFor(modelItem => Model.CountryName)
+    </div>
+    <div class="col-sm">
+        <a asp-action="DeleteCountry" asp-route-id="@Model.Id">Delete Country</a>
+    </div>
+</div>

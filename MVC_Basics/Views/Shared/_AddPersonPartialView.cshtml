@@ -2,17 +2,16 @@
 
 @model CreatePersonViewModel
 
-Submit a Person to the List
+<b>Add a new Person</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <br />
 <form asp-controller="People" asp-action="AddNewPerson" method="post">
-    <label asp-for="Name"></label>
-    <input type="text" required name="name" />
+    <input type="text" required name="name" class="my-form-box-1" placeholder="Name" />
     <br />
-    <label asp-for="PhoneNumber"></label>
-    <input type="text" required name="phoneNumber" />
+    <input type="text" required name="phoneNumber" class="my-form-box-1" placeholder="Phone Number" />
     <br />
-    <label asp-for="City"></label>
-    <input type="text" required name="city" />
+    <select asp-for="City" asp-items="ViewBag.Cities" class="my-form-box-1">
+    <option value="" selected disabled>Select City</option>
+    </select>
     <br />
     <input type="submit" value="Submit" />
 </form>

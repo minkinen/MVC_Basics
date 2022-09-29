@@ -1,0 +1,15 @@
+﻿
+
+@model CreateCityViewModel
+
+<b>Add a new City</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />
+<form asp-controller="Cities" asp-action="AddNewCity" method="post">
+    <input type="text" required name="cityname" class="my-form-box-1" placeholder="Name" />
+    <br />
+    <select asp-for="Country" asp-items="ViewBag.Countries" class="my-form-box-1">
+    <option value="" selected disabled>Select Country</option>
+    </select>
+    <br />
+    <input type="submit" value="Submit" />
+</form>

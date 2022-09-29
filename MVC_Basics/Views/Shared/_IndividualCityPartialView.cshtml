@@ -1,0 +1,13 @@
+﻿@model City
+
+<div class="row">
+    <div class="col-sm">
+        @Html.DisplayFor(modelItem => Model.CityName)
+    </div>
+    <div class="col-sm">
+        @Html.DisplayFor(modelItem => Model.Country.CountryName)
+    </div>
+    <div class="col-sm">
+        <a asp-action="DeleteCity" asp-route-id="@Model.Id">Delete City</a>
+    </div>
+</div>

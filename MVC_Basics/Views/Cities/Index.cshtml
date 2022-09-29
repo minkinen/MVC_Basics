@@ -1,0 +1,80 @@
+﻿@model CitiesViewModel
+
+@{
+    ViewData["Title"] = CitiesViewModel.Title;
+}
+
+<h1>@CitiesViewModel.Header</h1>
+
+
+<div align="right">
+<partial name="~/Views/Shared/_AddCityPartialView.cshtml" model="new CreateCityViewModel()" />
+</div>
+<br />
+
+
+<div align="right">
+<form asp-controller="Cities" asp-action="Search" method="post">
+    <label><b>Search for City or Country</b></label>
+    <br />
+    <input type="text" name="Search" class="my-form-box-1" />
+    <br />
+    <input type="submit" value="Search" />
+</form>
+</div>
+
+
+    @if (ViewBag.SearchMessage == null)
+{
+    <p>Full List</p>
+
+    <div class="row">
+        <div class="col-sm">
+            <b>City</b>
+        </div>
+        <div class="col-sm">
+            <b>Country</b>
+        </div>
+        <div class="col-sm">
+            <b>&nbsp;</b>
+        </div>
+        <hr>
+    </div>
+    @foreach (var item in Model.Cities)
+    {
+        <partial name="~/Views/Shared/_IndividualCityPartialView.cshtml" model="item" />
+        <hr>
+    }
+}
+else
+{
+    <p>@ViewBag.SearchMessage</p>
+
+<div class="row">
+    <div class="col-sm">
+        <b>City</b>
+    </div>
+    <div class="col-sm">
+        <b>Country</b>
+    </div>
+    <div class="col-sm">
+        <b>&nbsp;</b>
+    </div>
+    <hr>
+</div>
+@foreach (var item in Model.Cities)
+{
+    <div class="row">
+        <div class="col-sm">
+            @item.CityName
+        </div>
+        <div class="col-sm">
+            @item.Country.CountryName
+        </div>
+        <div class="col-sm">
+            <a asp-action="DeleteCity" asp-route-id="@item.Id">Delete City</a>
+        </div>
+    </div>
+    <hr>
+    }
+}

@@ -1,0 +1,11 @@
+﻿
+
+@model CreateCountryViewModel
+
+<b>Add a new Country</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br />
+<form asp-controller="Countries" asp-action="AddNewCountry" method="post">
+    <input type="text" required name="countryname" class="my-form-box-1" placeholder="Name" />
+    <br />
+    <input type="submit" value="Submit" />
+</form>

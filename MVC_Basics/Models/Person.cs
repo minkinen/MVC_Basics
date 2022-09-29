@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MVC_Basics.Models.ViewModels;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,30 +22,11 @@ namespace MVC_Basics.Models
         [Required(ErrorMessage = "Phone Number Required")]
         public string PhoneNumber { get; set; }
 
+        [ForeignKey("City")]
+        public int CityId { get; set; }
+
         [Display(Name = "City")]
-        [MaxLength(50)]
-        [Required(ErrorMessage = "City Required")]
-        public string City { get; set; }
-
-
-        public Person()
-        {
-        }
-
-        public Person(string name, string phone, string city)
-        {
-            Name = name;
-            PhoneNumber = phone;
-            City = city;
-        }
-
-        public Person(int id,  string name, string phone, string city)
-        {
-            Id = id;
-            Name = name;
-            PhoneNumber = phone;
-            City = city;
-        }
+        public City City { get; set; }
 
     }
 }

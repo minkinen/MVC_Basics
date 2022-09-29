@@ -7,7 +7,12 @@ namespace MVC_Basics.Models.ViewModels
     [ModelMetadataType(typeof(Person))] 
     public class CreatePersonViewModel : Person
     {
+
+        [Required]
+        public string City { get; set; }
+
         // Extra attribute with an internal get to prevent overposting
-        public bool IsAdmin { internal get; set; }
+        // public bool IsAdmin { internal get; set; }
+
     }
 }

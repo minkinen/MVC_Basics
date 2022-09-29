@@ -10,9 +10,9 @@
         @Html.DisplayFor(modelItem => Model.PhoneNumber)
     </div>
     <div class="col-sm">
-        @Html.DisplayFor(modelItem => Model.City)
+        @Html.DisplayFor(modelItem => Model.City.CityName)
     </div>
     <div class="col-sm">
-        <a asp-action="DeletePerson" asp-route-id="@Model.Id">Delete</a>
+        <a asp-action="DeletePerson" asp-route-id="@Model.Id">Delete Person</a>
     </div>
 </div>

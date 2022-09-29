@@ -11,11 +11,9 @@ namespace MVC_Basics.Models.ViewModels
 
         public static string Header = "People Index";
 
-        public List<Person> PeopleList { get; set; }
+        public List<Person> People { get; set; }
 
         public string Search { get; set; }
-        public List<Person> QueryList { get; set; }
-
 
     }
 }

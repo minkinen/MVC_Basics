@@ -2,6 +2,9 @@
 using MVC_Basics.Data;
 using MVC_Basics.Models;
 using MVC_Basics.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+
 
 namespace MVC_Basics.Controllers
 {
@@ -18,11 +21,12 @@ namespace MVC_Basics.Controllers
 
         public IActionResult Index()
         {
+            
             PeopleViewModel peopleViewModelInstance = new PeopleViewModel();
-            peopleViewModelInstance.PeopleList = _context.People.ToList();
+            peopleViewModelInstance.People = _context.People.ToList();
+            ViewBag.Cities = new SelectList(_context.Cities.ToList());
             return View("Index", peopleViewModelInstance);
         }
-
 
         [HttpPost]
         public IActionResult Search(string search)
@@ -30,13 +34,14 @@ namespace MVC_Basics.Controllers
             if (!String.IsNullOrEmpty(search))
             {
                 PeopleViewModel peopleViewModelSearchInstance = new PeopleViewModel();
-                peopleViewModelSearchInstance.PeopleList = _context.People.ToList();
+                peopleViewModelSearchInstance.People = _context.People.ToList();
+                ViewBag.Cities = new SelectList(_context.Cities.ToList());
 
                 List<Person> queryList = new List<Person>();
 
-                foreach (Person p in peopleViewModelSearchInstance.PeopleList)
+                foreach (Person p in peopleViewModelSearchInstance.People)
                 {
-                    bool searchHit = p.Name.ToString().ToUpper().Contains(search.ToUpper()) || p.City.ToString().ToUpper().Contains(search.ToUpper());
+                    bool searchHit = p.Name.ToString().ToUpper().Contains(search.ToUpper()) || p.City.CityName.ToString().ToUpper().Contains(search.ToUpper());
                     if (searchHit == true)
                     {
                         queryList.Add(p);
@@ -44,7 +49,7 @@ namespace MVC_Basics.Controllers
                 }
 
                 peopleViewModelSearchInstance.Search = search;
-                peopleViewModelSearchInstance.QueryList = queryList;
+                peopleViewModelSearchInstance.People = queryList;
 
                 ViewBag.SearchMessage = "Search: " + search;
 
@@ -56,8 +61,6 @@ namespace MVC_Basics.Controllers
             }
         }
 
-
-
         public IActionResult DeletePerson(int Id)
         {
             if (ModelState.IsValid)
@@ -65,29 +68,30 @@ namespace MVC_Basics.Controllers
                 var personToRemove = _context.People.Find(Id);
                 _context.People.Remove(personToRemove);
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
             }
             else
             {
-                ModelState.Where(z => z.Value.Errors.Count > 0).ToList();
-                return RedirectToAction(nameof(Index));
+                ModelState.Where(z => z.Value.Errors.Count > 0).ToList();   
             }
+            return RedirectToAction(nameof(Index));
         }
 
-
         [HttpPost]
-        public IActionResult AddNewPerson(CreatePersonViewModel person)
+        public IActionResult AddNewPerson(CreatePersonViewModel newPerson)
         {
             if (ModelState.IsValid)
             {
+                var person = new Person()
+                {
+                    Name = newPerson.Name,
+                    City = _context.Cities.Where(c => c.CityName == newPerson.City).FirstOrDefault(),
+                    PhoneNumber = newPerson.PhoneNumber
+                };
+
                 _context.People.Add(person);
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Index));
             }
-            else
-            {
                 return RedirectToAction(nameof(Index));
-            }
         }
     }
 }

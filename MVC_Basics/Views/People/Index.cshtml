@@ -17,9 +17,9 @@
 
 <div align="right">
 <form asp-controller="People" asp-action="Search" method="post">
-    <label>Search for a Name or City&nbsp;</label>
+    <label><b>Search for a Name or City</b>&nbsp;</label>
     <br />
-    <input type="text" name="Search" />
+    <input type="text" name="Search" class="my-form-box-1" />
     <br />
     <input type="submit" value="Search" />
 </form>
@@ -45,7 +45,7 @@
         </div>
         <hr>
     </div>
-    @foreach (var item in Model.PeopleList)
+    @foreach (var item in Model.People)
     {
         <partial name="~/Views/Shared/_IndividualPersonPartialView.cshtml" model="item" />
         <hr>
@@ -70,7 +70,7 @@ else
         </div>
         <hr>
     </div>
-    @foreach (var item in Model.QueryList)
+    @foreach (var item in Model.People)
     {
         <div class="row">
             <div class="col-sm">
@@ -80,10 +80,10 @@ else
                 @item.PhoneNumber
             </div>
             <div class="col-sm">
-                @item.City
+                @item.City.CityName
             </div>
             <div class="col-sm">
-                <a asp-action="DeletePerson" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="DeletePerson" asp-route-id="@item.Id">Delete Person</a>
             </div>
         </div>
         <hr>
